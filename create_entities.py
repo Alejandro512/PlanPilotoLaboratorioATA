@@ -1,7 +1,7 @@
 import requests
 from config import API_URL
 
-def create_user(token, name, lastname, email):
+def create_user(token, name, lastname, email, password):
     headers = {"Authorization": f"Bearer {token}"}
     res = requests.post(
         f"{API_URL}/users/create",
@@ -10,7 +10,7 @@ def create_user(token, name, lastname, email):
             "lastname": lastname,
             "email": email,
             "company": "Prueba S.A.",
-            "password": "user1234"
+            "password": password  # <-- usa la variable
         },
         headers=headers
     )
