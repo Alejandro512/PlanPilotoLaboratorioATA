@@ -1,0 +1,5 @@
+# Requerido para hacer peticiones HTTP
+requests==2.31.0
+
+# Requerido para trabajar con fechas si decides usar pytz o dateutil (opcional)
+python-dateutil==2.9.0.post0

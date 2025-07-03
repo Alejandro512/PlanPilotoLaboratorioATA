@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from config import API_URL
 
 def create_ticket(token, sensor_id, alert_id):
