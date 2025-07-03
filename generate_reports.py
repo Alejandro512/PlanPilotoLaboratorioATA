@@ -1,27 +1,20 @@
 from config import API_URL
 import requests
 
-def create_report(token, sensor_id, metrics):
+def create_report(token, sensor_id, start_date, end_date):
+    url = f"{API_URL}/reports/create"
     headers = {"Authorization": f"Bearer {token}"}
-    payload = {
+    body = {
         "parameters": {
             "sensorId": sensor_id,
-            "startDate": "2025-06-25T18:00:00Z",
-            "endDate": "2025-06-25T20:00:00Z"
+            "startDate": start_date,
+            "endDate": end_date
         },
         "format": "pdf"
     }
-
-    res = requests.post(f"{API_URL}/reports/create", json=payload, headers=headers)
+    res = requests.post(url, json=body, headers=headers)
     res.raise_for_status()
-    report = res.json()
-
-    size_mb = report.get("size_mb", 0.5)
-    container_id = report.get("container_id", "default")
-    metrics.log_created(size_mb, container_id)
-
-    return report
-
+    return res.json()
 
 def download_report(token, report_id, metrics):
     headers = {"Authorization": f"Bearer {token}"}

@@ -4,7 +4,7 @@ from create_entities import create_user, create_sensor
 from simulate_readings import send_bulk_readings
 from generate_reports import create_report, download_report
 from config import SUPERADMIN, ADMIN
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from metrics import ReportMetrics
 import time
 
@@ -42,10 +42,18 @@ for i in range(NUM_USERS):
 
         # Crear múltiples reportes por sensor
         for k in range(NUM_REPORTS_PER_SENSOR):
-            report = create_report(user_token, sensor["id"], metrics)
+            # Ejemplo: últimos 2 horas
+            end_date = datetime.now(timezone.utc)
+            start_date = end_date - timedelta(hours=2)
+
+            report = create_report(
+                user_token,
+                sensor["id"],
+                start_date.isoformat(),
+                end_date.isoformat()
+            )
             print(f"Reporte generado: {report}")
 
-            # Descargar el reporte para medir descarga
             content = download_report(user_token, report["id"], metrics)
 
 # Mostrar métricas finales
