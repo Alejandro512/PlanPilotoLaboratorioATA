@@ -42,7 +42,7 @@ for i in range(NUM_USERS):
 
         # Crear múltiples reportes por sensor
         for k in range(NUM_REPORTS_PER_SENSOR):
-            report = create_report(user_token, sensor["id"], metrics, user["id"])
+            report = create_report(user_token, sensor["id"], metrics)
             print(f"Reporte generado: {report}")
 
             # Descargar el reporte para medir descarga
